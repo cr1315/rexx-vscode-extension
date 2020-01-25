@@ -1,24 +1,21 @@
 # rexx README
 
-This is the README for rexx-syntax-highlighting.
+This is the README for rexx-vscode-extension.
 
 ## Features
 
-syntax highlighting for rexx
-
-## Known Issues
-
-Not aware of "Umlaute" in comments.
+- syntax highlighting for rexx
+- do simple symbols parsing
 
 ## Release Notes
 
-### 1.0.0
+### 0.0.1
 
 Initial release
 
 ## Credits
 
-[mblocker](https://github.com/mblocker) - [sublime syntx highlighting (rexx.tmLanguage)](https://github.com/mblocker/rexx-sublime) 
+[websi96](https://github.com/websi96) - [rexx-syntax-highlighting](https://github.com/websi96/rexx-syntax-highlighting) 
 
 
 -----------------------------------------------------------------------------------------------------------
