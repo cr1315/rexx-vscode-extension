@@ -15,8 +15,6 @@ Initial release
 
 ## Credits
 
-[websi96](https://github.com/websi96) - [rexx-syntax-highlighting](https://github.com/websi96/rexx-syntax-highlighting) 
-[svaberg](https://github.com/svaberg) - [SWMF-grammar](https://github.com/svaberg/SWMF-grammar)
+- [websi96](https://github.com/websi96) - [rexx-syntax-highlighting](https://github.com/websi96/rexx-syntax-highlighting)
+- [svaberg](https://github.com/svaberg) - [SWMF-grammar](https://github.com/svaberg/SWMF-grammar)
 
-
------------------------------------------------------------------------------------------------------------
