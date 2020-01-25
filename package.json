@@ -4,13 +4,30 @@
 	"description": "syntax highlighting of the rexx language",
 	"version": "1.0.2",
 	"publisher": "websi96",
-	"repository": "https://github.com/websi96/rexx-syntax-highlighting.git",
+	"homepage": "https://github.com/websi96/rexx-syntax-highlighting#readme",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile",
+		"test": ""
+	},
+	"author": "",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/websi96/rexx-syntax-highlighting.git"
+	},
 	"engines": {
 		"vscode": "^1.28.0"
 	},
 	"categories": [
 		"Programming Languages"
 	],
+	"activationEvents": [
+		"onLanguage:rexx"
+	],
+	"main": "./out/extension.ts",
 	"contributes": {
 		"languages": [
 			{
@@ -35,9 +52,16 @@
 			}
 		]
 	},
+	"bugs": {
+		"url": "https://github.com/websi96/rexx-syntax-highlighting/issues"
+	},
 	"__metadata": {
 		"id": "ec26019b-c87c-45df-8088-77dd8a0b987c",
-		"publisherId": "e7819557-85bc-4656-8a9b-efe650a2f6b6",
-		"publisherDisplayName": "Thomas Weber"
+		"publisherDisplayName": "Thomas Weber",
+		"publisherId": "e7819557-85bc-4656-8a9b-efe650a2f6b6"
+	},
+	"devDependencies": {
+		"typescript": "^3.7.5",
+		"vscode": "^1.1.36"
 	}
 }
