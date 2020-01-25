@@ -41,7 +41,7 @@ class RexxConfigDocumentSymbolProvider implements vscode.DocumentSymbolProvider 
 				if (line.text.match(/^\s*[@\d\w]+:/)) {
 					let colon_index = line.text.indexOf(":")
 					let cmd_symbol = new vscode.DocumentSymbol(
-						line.text.substring(1, colon_index-1),
+						line.text.substring(0, colon_index),
 						'',
 						symbolkind_cmd,
 						line.range, line.range)
