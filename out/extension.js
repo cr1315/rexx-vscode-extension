@@ -22,10 +22,9 @@ class RexxConfigDocumentSymbolProvider {
             let symbolkind_cmd = vscode.SymbolKind.Function;
             for (var i = 0; i < document.lineCount; i++) {
                 var line = document.lineAt(i);
-                let tokens = line.text.split(" ");
-                if (line.text.match(/^\s*[@\d\w]+:/)) {
-                    let colon_index = line.text.indexOf(":");
-                    let cmd_symbol = new vscode.DocumentSymbol(line.text.substring(0, colon_index), '', symbolkind_cmd, line.range, line.range);
+                let matches = line.text.match(/^\s*([@\d\w]+):/);
+                if (matches) {
+                    let cmd_symbol = new vscode.DocumentSymbol(matches[1], '', symbolkind_cmd, line.range, line.range);
                     nodes[nodes.length - 1].push(cmd_symbol);
                 }
             }
