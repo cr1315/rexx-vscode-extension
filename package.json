@@ -48,7 +48,7 @@
 			{
 				"language": "rexx",
 				"scopeName": "source.rexx",
-				"path": "./syntaxes/rexx.tmLanguage"
+				"path": "./syntaxes/rexx.tmLanguage.json"
 			}
 		]
 	},
