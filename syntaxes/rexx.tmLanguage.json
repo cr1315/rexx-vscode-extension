@@ -36,7 +36,7 @@
       "name": "keyword.rexx"
     },
     {
-      "match": "\\b[A-Za-z@#$¢!?_][A-Za-z0-9@#$¢.!?_]*",
+      "match": "[A-Za-z@#$¢!?_][A-Za-z0-9@#$¢.!?_]*",
       "name": "variable.rexx"
     }
   ],
@@ -79,9 +79,26 @@
     "string": {
       "patterns": [
         {
-          "begin": "(['\"])",
-          "end": "\\1",
-          "name": "string.rexx"
+          "begin": "(?<!')'",
+          "end": "'(?!')",
+          "name": "string.quoted.single.rexx",
+          "patterns": [
+            {
+              "match": "''",
+              "name": "constant.character.escape.rexx"
+            }
+          ]
+        },
+        {
+          "begin": "(?<!\")\"",
+          "end": "\"(?!\")",
+          "name": "string.quoted.double.rexx",
+          "patterns": [
+            {
+              "match": "\"\"",
+              "name": "constant.character.escape.rexx"
+            }
+          ]
         }
       ]
     },

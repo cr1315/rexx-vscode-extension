@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // src/extension.ts
 const vscode = require("vscode");
@@ -8,7 +8,10 @@ function activate(context) {
 exports.activate = activate;
 class RexxConfigDocumentSymbolProvider {
     format(cmd) {
-        return cmd.substr(1).toLowerCase().replace(/^\w/, c => c.toUpperCase());
+        return cmd
+            .substr(1)
+            .toLowerCase()
+            .replace(/^\w/, (c) => c.toUpperCase());
     }
     provideDocumentSymbols(document, token) {
         return new Promise((resolve, reject) => {
@@ -24,7 +27,7 @@ class RexxConfigDocumentSymbolProvider {
                 var line = document.lineAt(i);
                 let matches = line.text.match(/^\s*([@\d\w]+):/);
                 if (matches) {
-                    let cmd_symbol = new vscode.DocumentSymbol(matches[1], '', symbolkind_cmd, line.range, line.range);
+                    let cmd_symbol = new vscode.DocumentSymbol(matches[1], "", symbolkind_cmd, line.range, line.range);
                     nodes[nodes.length - 1].push(cmd_symbol);
                 }
             }
