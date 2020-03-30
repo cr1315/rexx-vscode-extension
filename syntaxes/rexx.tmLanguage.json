@@ -32,7 +32,11 @@
       "name": "keyword.operator.rexx"
     },
     {
-      "match": "\\b(?i:do|forever|while|until|to|by|for|end|exit|if|then|else|iterate|leave|nop|return|select|when|otherwise|signal|call(\\s+(off|on)\\s+(error|failure|halt)(\\s+name)?)?|signal(\\s+(off|on)\\s+(error|failure|halt|novalue|syntax)(\\s+name)?)?|address\\s+\\w+|arg|drop|interpret|numeric\\s+(digits|form(\\s+(scientific|engineering|value))?|fuzz)|options|parse(\\s+upper)?\\s+(arg|external|numeric|pull|source|(value\\s+\\w+\\s+with)|var|version)?|procedure(\\s+expose)?|pull|push|queue|say|trace\\s+\\w+|upper)\\b(?!\\.)",
+      "match": "\\b(?i:do|end|if|then|else)\\b(?!\\.)",
+      "name": "keyword.control.italic.rexx"
+    },
+    {
+      "match": "\\b(?i:forever|while|until|to|by|for|exit|iterate|leave|nop|return|select|when|otherwise|signal|call(\\s+(off|on)\\s+(error|failure|halt)(\\s+name)?)?|signal(\\s+(off|on)\\s+(error|failure|halt|novalue|syntax)(\\s+name)?)?|address\\s+\\w+|arg|drop|interpret|numeric\\s+(digits|form(\\s+(scientific|engineering|value))?|fuzz)|options|parse(\\s+upper)?\\s+(arg|external|numeric|pull|source|(value\\s+\\w+\\s+with)|var|version)?|procedure(\\s+expose)?|pull|push|queue|say|trace\\s+\\w+|upper)\\b(?!\\.)",
       "name": "keyword.rexx"
     },
     {
