@@ -1,24 +1,40 @@
+#
+# this is a rexx syntax file
+# it's textMate based
+#
+# I have referenced ...
+#
+# I have also modfied the js-yaml module in this repo to let it do what I want:
+#   - the most important one, add no space after each line of a multiline block scalar
+#
 ---
-  name: REXX
+  name: rexx
   scopeName: source.rexx
   fileTypes:
     - rex
     - rxj
     - rexx
     - rx
-  firstLineMatch: /\*.*(?i:REXX)\b
+  firstLineMatch: /\*.*(?i:rexx)\b
   foldingStartMarker: (/\*|\b(do|select)\b)
   foldingStopMarker: (\*/|\bend\b)
+
+  #
+  # patterns - main entry
+  #
   patterns:
-    -
-      begin: /\*
-      end: \*/
-      name: comment.rexx
-    -
-      begin: /--
-      name: comment.rexx
-    -
-      name: constant.rexx
+
+    - include: "#comment"
+
+    - include: "#label"
+
+    - include: "#instruction"
+
+
+  #
+  # repository
+  #
+    - name: constant.rexx
       match: >-
 
     -
@@ -55,10 +71,18 @@
       match: >-
         \b[A-Za-z@#$¢!?_][A-Za-z0-9@#$¢.!?_]*
       name: variable.rexx
+
+
+
   repository:
     constant:
       patterns:
         - name: constant.rexx
           match: >-
             (['"])[01 ]+\1(?i:b)
+    comment:
+      patterns:
+        - name: comment.rexx
+          begin: /\*
+          end: \*/
 
