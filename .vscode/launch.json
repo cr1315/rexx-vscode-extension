@@ -1,24 +1,39 @@
 // A launch configuration that compiles the extension and then opens it inside a new window
 {
-	"version": "0.0.1",
-	"configurations": [
-		{
-			"type": "extensionHost",
-			"request": "launch",
-			"name": "Launch Client",
-			"runtimeExecutable": "${execPath}",
-			"args": ["--extensionDevelopmentPath=${workspaceRoot}"],
-			"outFiles": ["${workspaceRoot}/out/**/*.js"],
-			"preLaunchTask": {
-				"type": "npm",
-				"script": "watch"
-			}
-		}
-	],
-	"compounds": [
-		{
-			"name": "Client + Server",
-			"configurations": ["Launch Client"]
-		}
-	]
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "type": "extensionHost",
+      "request": "launch",
+      "name": "Launch Client",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceRoot}"],
+      "outFiles": ["${workspaceRoot}/out/**/*.js"],
+      "preLaunchTask": {
+        "type": "npm",
+        "script": "watch"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "debug js-yaml",
+      "program": "${workspaceFolder}/node_modules/.bin/js-yaml",
+      "args": ["./syntaxes/rexx.tmLanguage.simple.yml"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "debug build-syntax-files",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "syntaxrules"],
+      "port": 9229
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Client + Server",
+      "configurations": ["Launch Client"]
+    }
+  ]
 }

@@ -10,7 +10,8 @@
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile",
-		"test": ""
+		"build": "node ./src/build",
+		"syntaxrules": "node --inspect-brk=9229 ./src/build-syntax-files"
 	},
 	"author": "",
 	"license": "MIT",
