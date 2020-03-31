@@ -1,0 +1,141 @@
+{
+  "fileTypes": [
+    "rex",
+    "rxj",
+    "rexx",
+    "rx"
+  ],
+  "firstLineMatch": "/\\*.*(?i:REXX)\\b",
+  "foldingStartMarker": "(/\\*|\\b(do|select)\\b)",
+  "foldingStopMarker": "(\\*/|\\bend\\b)",
+  "name": "REXX",
+  "scopeName": "source.rexx",
+  "patterns": [
+    {
+      "include": "#comment"
+    },
+    {
+      "include": "#function-call"
+    },
+    {
+      "include": "#constant"
+    },
+    {
+      "include": "#string"
+    },
+    {
+      "match": "[A-Za-z@#$!?_][A-Za-z@#$!?_0-9]*:",
+      "name": "storage.type.function.rexx"
+    },
+    {
+      "match": "([\\+-/*%&|()¬\\\\=<>])",
+      "name": "keyword.operator.rexx"
+    },
+    {
+      "match": "\\b(?i:do|end|if|then|else)\\b(?!\\.)",
+      "name": "keyword.control.italic.rexx"
+    },
+    {
+      "match": "\\b(?i:forever|while|until|to|by|for|exit|iterate|leave|nop|return|select|when|otherwise|signal|call(\\s+(off|on)\\s+(error|failure|halt)(\\s+name)?)?|signal(\\s+(off|on)\\s+(error|failure|halt|novalue|syntax)(\\s+name)?)?|address\\s+\\w+|arg|drop|interpret|numeric\\s+(digits|form(\\s+(scientific|engineering|value))?|fuzz)|options|parse(\\s+upper)?\\s+(arg|external|numeric|pull|source|(value\\s+\\w+\\s+with)|var|version)?|procedure(\\s+expose)?|pull|push|queue|say|trace\\s+\\w+|upper)\\b(?!\\.)",
+      "name": "keyword.rexx"
+    },
+    {
+      "match": "[A-Za-z@#$¢!?_][A-Za-z0-9@#$¢.!?_]*",
+      "name": "variable.rexx"
+    }
+  ],
+  "uuid": "1ebe3dbc-ae7f-413a-990f-c37fc1b0d204",
+  "repository": {
+    "comment": {
+      "patterns": [
+        {
+          "begin": "/\\*",
+          "end": "\\*/",
+          "name": "comment.rexx",
+          "patterns": [
+            {
+              "include": "#comment"
+            }
+          ]
+        }
+      ]
+    },
+    "constant": {
+      "patterns": [
+        {
+          "match": "(['\"])[01 ]+\\1(?i:b)",
+          "name": "constant.rexx"
+        },
+        {
+          "match": "(['\"])[0-9a-fA-F ]+\\1(?i:x)",
+          "name": "constant.rexx"
+        },
+        {
+          "match": "([0-9]+(\\.)?[0-9]*(?i:e[-+]?[0-9]+)?|[0-9]*(\\.)?[0-9]+)(?i:e[-+]?[0-9]+)?\\b",
+          "name": "constant.numeric.rexx"
+        },
+        {
+          "match": "[0-9\\.][A-Za-z0-9@#$¢.!?_]*",
+          "name": "constant.other.rexx"
+        }
+      ]
+    },
+    "string": {
+      "patterns": [
+        {
+          "begin": "(?<!')'",
+          "end": "'(?!')",
+          "name": "string.quoted.single.rexx",
+          "patterns": [
+            {
+              "match": "''",
+              "name": "constant.character.escape.rexx"
+            }
+          ]
+        },
+        {
+          "begin": "(?<!\")\"",
+          "end": "\"(?!\")",
+          "name": "string.quoted.double.rexx",
+          "patterns": [
+            {
+              "match": "\"\"",
+              "name": "constant.character.escape.rexx"
+            }
+          ]
+        }
+      ]
+    },
+    "function-call": {
+      "patterns": [
+        {
+          "comment": "internal functions",
+          "begin": "\\b(?i)(abbrev|abs|address|arg|bitand|bitor|bitxor|b2x|center|centre|compare|condition|copies|c2d|c2x|datatype|date|dbcs|delstr|delword|digits|d2c|d2x|errortext|find|form|format|fuzz|getmsg|index|insert|justify|lastpos|left|length|linesize|listdsi|max|min|msg|mvsvar|outtrap|overlay|pos|prompt|queued|random|reverse|right|setlang|sign|sourceline|space|storage|strip|substr|subword|symbol|syscpus|sysdsn|sysvar|time|trace|trunslate|trunc|userid|value|verify|word|wordindex|wordlength|wordpos|words|xrange|x2b|x2c|x2d)(\\()",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "support.function.rexx"
+            },
+            "2": {
+              "name": "meta.brace.round.rexx"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "meta.brace.round.rexx"
+            }
+          },
+          "patterns": [
+            {
+              "include": "$self"
+            }
+          ]
+        },
+        {
+          "match": "\\b[A-Za-z@#$!?_0-9]+(?=\\()",
+          "name": "entity.name.section.rexx"
+        }
+      ]
+    }
+  }
+}

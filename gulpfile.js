@@ -1,10 +1,13 @@
-const { dest, src } = require("gulp");
-const { toJSON } = require("./syntaxes/scripts/toJSON");
+const { dest, watch, src } = require("gulp");
+const yaml = require("gulp-yaml");
 
-exports.default = (callback) => {
-  src("./syntaxes/src/rexx.tmLanguage.simple.yml")
-    // .pipe(toJSON())
-
+function toJSON(callback) {
+  src("./syntaxes/src/rexx.tmLanguage.yml")
+    .pipe(yaml({ space: 2 }))
     .pipe(dest("./syntaxes/out/"));
   callback();
+}
+
+exports.default = () => {
+  watch("./syntaxes/src/rexx.tmLanguage.yml", toJSON);
 };
