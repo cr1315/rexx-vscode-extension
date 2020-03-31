@@ -1,6 +1,8 @@
-# rexx README
+# z/OS-TSO-REXX
 
-This is the README for rexx-vscode-extension.
+This is a syntax highlighter for z/OS TSO/E REXX.
+
+Syntax is based on [IBM's REXX syntax here](https://www.ibm.com/support/knowledgecenter/en/SSLTBW_2.3.0/com.ibm.zos.v2r3.ikja300/intro.htm).
 
 ## Features
 

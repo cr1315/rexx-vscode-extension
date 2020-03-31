@@ -17,9 +17,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "debug js-yaml",
-      "program": "${workspaceFolder}/node_modules/.bin/js-yaml",
-      "args": ["./syntaxes/rexx.tmLanguage.simple.yml"]
+      "name": "learn async",
+      "program": "${workspaceFolder}/learn-async/async"
     },
     {
       "type": "node",
