@@ -4,6 +4,11 @@ This is a syntax highlighter for z/OS TSO/E REXX.
 
 Syntax is based on [IBM's REXX syntax here](https://www.ibm.com/support/knowledgecenter/en/SSLTBW_2.3.0/com.ibm.zos.v2r3.ikja300/intro.htm).
 
+## 值得一说的东西
+
+- 改了`js-yaml`的一部分，使其更适合写正则
+- 加入了`gulp watch`的部分，使开发更加便捷一些吧。。
+
 ## Features
 
 - syntax highlighting for rexx
