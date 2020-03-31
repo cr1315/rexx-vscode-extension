@@ -30,12 +30,6 @@
 
     - include: "#instruction"
 
-    # temporarily
-    - include: "#function-call"
-    - include: "#keyword"
-    - include: "#variable"
-    - include: "#constant"
-
 
   #
   # repository
@@ -71,18 +65,39 @@
       patterns:
         - include: "#string"
 
+        # temporarily
+        - include: "#function-call"
+        - include: "#keyword"
+        - include: "#variable"
+        - include: "#constant"
+
     string:
       patterns:
+        - name: constant.numeric.binary.rexx
+          match: >-
+            (['"])[01 ]+\1(?i:b)
+
+        - name: constant.numeric.hexadecimal.rexx
+          match: >-
+            (['"])[0-9a-fA-F ]+\1(?i:x)
+
         - name: string.quoted.double.rexx
           begin: '(?<!")"'
-          end: '"(?!")'
+          end: '"(?!")([xXbB](?=\s))?'
+          endCaptures:
+            1:
+              name: invalid.rexx
           patterns:
             - name: constant.character.escape.rexx
               match: '""'
 
         - name: string.quoted.single.rexx
           begin: "(?<!')'"
-          end: "'(?!')"
+          end: >-
+            '(?!')([xXbB](?=\s))?
+          endCaptures:
+            1:
+              name: invalid.rexx
           patterns:
             - name: constant.character.escape.rexx
               match: "''"
@@ -94,7 +109,7 @@
     #
     function-call:
       patterns:
-        - comment: let's make internal functions show in another color
+        - comment: let's make internal functions shown in another color
           begin: >-
             \b(?i)
             (abbrev|abs|address|arg|bitand|bitor|bitxor|b2x|
@@ -127,32 +142,25 @@
             [A-Za-z@#$!?_0-9]+
             (?=\()
 
-    constant:
-      patterns:
-        - name: constant.numeric.binary.rexx
+        - comment: also, we call our user-defined functions this way.
           match: >-
-            (['"])[01 ]+\1(?i:b)
+            \b(call)\s+(?!on|off)
+            (\S+)(?=\s)
+          captures:
+            1:
+              name: keyword.rexx
+            2:
+              name: entity.name.section.rexx
 
-        - name: constant.numeric.hexadecimal.rexx
+        - comment: and this way.
           match: >-
-            (['"])[0-9a-fA-F ]+\1(?i:x)
-
-        - name: constant.numeric.rexx
-          match: >-
-            ([0-9]+(\.)?[0-9]*(?i:e[-+]?[0-9]+)?|
-            [0-9]*(\.)?[0-9]+)
-            (?i:e[-+]?[0-9]+)?\b
-
-        - name: constant.other.rexx
-          match: >-
-            [0-9\.][A-Za-z0-9@#$¢.!?_]*
-
-    # need fix
-    variable:
-      patterns:
-        - name: variable.rexx
-          match: >-
-            \b[A-Za-z@#$¢!?_][A-Za-z0-9@#$¢.!?_]*
+            \b(signal)\s+(?!on|off)
+            (\S+)(?=\s)
+          captures:
+            1:
+              name: keyword.rexx
+            2:
+              name: entity.name.section.rexx
 
     keyword:
       patterns:
@@ -167,12 +175,29 @@
             \b
             (?i:do|forever|while|until|to|by|for|end|exit|if|then|
             else|iterate|leave|nop|return|select|when|otherwise|
-            call(\s+(off|on)\s+(error|failure(\s+name)?|halt))?|
-            signal(\s+(off|on)\s+(error|failure(\s+name)?|halt|novalue|syntax))|
+            call(\s+(off|on)\s+(error|failure|halt)(\s+name)?)?|
+            signal(\s+(off|on)\s+(error|failure|halt|novalue|syntax)(\s+name)?)?|
             address\s+\w+|arg|drop|interpret|numeric\s+(digits|
             form(\s+(scientific|engineering|value))?|fuzz)|options|
             parse(\s+upper)?\s+(external|numeric|source|value|var|version)?|
             with|procedure(\s+expose)?|pull|push|queue|say|trace\s+\w+|upper)
             \b(?!\.)
 
+    constant:
+      patterns:
+        - name: constant.numeric.rexx
+          match: >-
+            [0-9]+(\.)?[0-9]*(?i:e[-+]?[0-9]+)?\b|
+            [0-9]*(\.)?[0-9]+(?i:e[-+]?[0-9]+)?\b
+
+        - name: constant.other.rexx
+          match: >-
+            [0-9\.][A-Za-z0-9@#$¢.!?_]*
+
+    # need fix
+    variable:
+      patterns:
+        - name: variable.rexx
+          match: >-
+            [A-Za-z@#$¢!?_][A-Za-z0-9@#$¢.!?_]*
 
