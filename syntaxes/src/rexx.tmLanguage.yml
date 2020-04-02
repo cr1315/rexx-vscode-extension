@@ -10,25 +10,24 @@
 ---
   name: rexx
   scopeName: source.rexx
-  fileTypes:
-    - rex
-    - rxj
-    - rexx
-    - rx
   firstLineMatch: /\*.*(?i:rexx)\b
+
   foldingStartMarker: (/\*|\b(do|select)\b)
   foldingStopMarker: (\*/|\bend\b)
+
+  fileTypes:
+  - rex
+  - rxj
+  - rexx
+  - rx
 
   #
   # patterns - main entry
   #
   patterns:
-
-    - include: "#comment"
-
-    - include: "#label"
-
-    - include: "#instruction"
+  - include: "#comment"
+  - include: "#label"
+  - include: "#instruction"
 
 
   #
@@ -41,163 +40,174 @@
     # your whole source will be just comment..
     comment:
       patterns:
-        - name: comment.rexx
-          begin: /\*
-          end: \*/
-          patterns:
-            - include: "#comment"
+      - name: comment.rexx
+        begin: /\*
+        end: \*/
+        patterns:
+        - include: "#comment"
 
     label:
       patterns:
-        # it's actually matching entity.name.function,
-        # but for the theme I'm using now,
-        # it would be more beautiful to be named storage.type.function
-        # - name: entity.name.function
-        - name: storage.type.function.rexx
-          match: >-
-            ^\s*
-            [A-Za-z@#$!?_]
-            [A-Za-z@#$!?_0-9]*
-            :
-
+      # it's actually matching entity.name.function,
+      # but for the theme I'm using now,
+      # it would be more beautiful to be named storage.type.function
+      # - name: entity.name.function
+      - name: storage.type.function.rexx
+        match: >-
+          ^\s*
+          [A-Za-z@#$!?_]
+          [A-Za-z@#$!?_0-9]*
+          :
 
     instruction:
       patterns:
-        - include: "#string"
+      - include: "#string"
 
-        # temporarily
-        - include: "#function-call"
-        - include: "#keyword"
-        - include: "#variable"
-        - include: "#constant"
+      # temporarily
+      - include: "#function-call"
+      - include: "#keyword"
+      - include: "#variable"
+      - include: "#constant"
+      - include: "#operator"
 
     string:
       patterns:
-        - name: constant.numeric.binary.rexx
-          match: >-
-            (['"])[01 ]+\1(?i:b)
+      - comment: binary string
+        name: constant.numeric.binary.rexx
+        match: >-
+          (['"])[01 ]+\1(?i:b)(?![A-Za-z0-9@#$¢.!?_])
 
-        - name: constant.numeric.hexadecimal.rexx
-          match: >-
-            (['"])[0-9a-fA-F ]+\1(?i:x)
+      - comment: hexadecimal string
+        name: constant.numeric.hexadecimal.rexx
+        match: >-
+          (['"])[0-9a-fA-F ]+\1(?i:x)(?![A-Za-z0-9@#$¢.!?_])
 
-        - name: string.quoted.double.rexx
-          begin: '(?<!")"'
-          end: '"(?!")([xXbB](?=\s))?'
-          endCaptures:
-            1:
-              name: invalid.rexx
-          patterns:
-            - name: constant.character.escape.rexx
-              match: '""'
+      - name: string.quoted.double.rexx
+        begin: '(?<!")"'
+        end: >-
+          "(?!")([xXbB][A-Za-z0-9@#$¢.!?_]*)?
+        endCaptures:
+          1:
+            name: invalid.rexx
+        patterns:
+        - name: constant.character.escape.rexx
+          match: '""'
 
-        - name: string.quoted.single.rexx
-          begin: "(?<!')'"
-          end: >-
-            '(?!')([xXbB](?=\s))?
-          endCaptures:
-            1:
-              name: invalid.rexx
-          patterns:
-            - name: constant.character.escape.rexx
-              match: "''"
+      - name: string.quoted.single.rexx
+        begin: "(?<!')'"
+        end: >-
+          '(?!')([xXbB][A-Za-z0-9@#$¢.!?_]*)?
+        endCaptures:
+          1:
+            name: invalid.rexx
+        patterns:
+        - name: constant.character.escape.rexx
+          match: "''"
 
 
     #
     # these are all temporarily..
-    # want to make them more structural some day..
+    # will make them more structural some day..
     #
     function-call:
       patterns:
-        - comment: let's make internal functions shown in another color
-          begin: >-
-            \b(?i)
-            (abbrev|abs|address|arg|bitand|bitor|bitxor|b2x|
-            center|centre|compare|condition|copies|c2d|c2x|
-            datatype|date|dbcs|delstr|delword|digits|d2c|d2x|
-            errortext|find|form|format|fuzz|getmsg|index|insert|
-            justify|lastpos|left|length|linesize|listdsi|max|min|
-            msg|mvsvar|outtrap|overlay|pos|prompt|queued|random|
-            reverse|right|setlang|sign|sourceline|space|storage|
-            strip|substr|subword|symbol|syscpus|sysdsn|sysvar|
-            time|trace|trunslate|trunc|userid|value|verify|word|
-            wordindex|wordlength|wordpos|words|xrange|x2b|x2c|x2d)
-            (\()
-          end: (\))
-          beginCaptures:
-            1:
-              name: support.function.rexx
-            2:
-              name: meta.brace.round.rexx
-          endCaptures:
-            1:
-              name: meta.brace.round.rexx
-          patterns:
-            - include: $self
+      - comment: let's make internal functions shown in another color
+        begin: >-
+          \b(?i)
+          (abbrev|abs|address|arg|bitand|bitor|bitxor|b2x|
+          center|centre|compare|condition|copies|c2d|c2x|
+          datatype|date|dbcs|delstr|delword|digits|d2c|d2x|
+          errortext|find|form|format|fuzz|getmsg|index|insert|
+          justify|lastpos|left|length|linesize|listdsi|max|min|
+          msg|mvsvar|outtrap|overlay|pos|prompt|queued|random|
+          reverse|right|setlang|sign|sourceline|space|storage|
+          strip|substr|subword|symbol|syscpus|sysdsn|sysvar|
+          time|trace|trunslate|trunc|userid|value|verify|word|
+          wordindex|wordlength|wordpos|words|xrange|x2b|x2c|x2d)
+          (\()
+        end: (\))
+        beginCaptures:
+          1:
+            name: support.function.rexx
+          2:
+            name: meta.brace.round.rexx
+        endCaptures:
+          1:
+            name: meta.brace.round.rexx
+        patterns:
+          - include: $self
 
-        # - name: entity.name.function
-        - comment: all the others are user-defined functions ?
-          name: entity.name.section.rexx
-          match: >-
-            [A-Za-z@#$!?_0-9]+
-            (?=\()
+      # - name: entity.name.function
+      - comment: all others are user-defined functions, aren't they ?
+        name: entity.name.section.rexx
+        match: >-
+          [A-Za-z@#$!?_0-9]+
+          (?=\()
 
-        - comment: also, we call our user-defined functions this way.
-          match: >-
-            \b(call)\s+(?!on|off)
-            (\S+)(?=\s)
-          captures:
-            1:
-              name: keyword.rexx
-            2:
-              name: entity.name.section.rexx
+      - comment: also, we could call our functions this way.
+        match: >-
+          \b(call)\s+(?!on|off)
+          (\S+)(?=\s)
+        captures:
+          1:
+            name: keyword.rexx
+          2:
+            name: entity.name.section.rexx
 
-        - comment: and this way.
-          match: >-
-            \b(signal)\s+(?!on|off)
-            (\S+)(?=\s)
-          captures:
-            1:
-              name: keyword.rexx
-            2:
-              name: entity.name.section.rexx
+      - comment: and this way..?
+        match: >-
+          \b(signal)\s+(?!on|off)
+          (\S+)(?=\s)
+        captures:
+          1:
+            name: keyword.rexx
+          2:
+            name: entity.name.section.rexx
 
     keyword:
       patterns:
-        - name: keyword.operator.rexx
-          match: ([\+-/*%&|()¬\\=<>])
+      - name: keyword.control.italic.rexx
+        match: \b(?i:do|end|if|then|else)\b(?!\.)
 
-        - name: keyword.control.italic.rexx
-          match: \b(?i:do|end|if|then|else)\b(?!\.)
-
-        - name: keyword.rexx
-          match: >-
-            \b
-            (?i:do|forever|while|until|to|by|for|end|exit|if|then|
-            else|iterate|leave|nop|return|select|when|otherwise|
-            call(\s+(off|on)\s+(error|failure|halt)(\s+name)?)?|
-            signal(\s+(off|on)\s+(error|failure|halt|novalue|syntax)(\s+name)?)?|
-            address\s+\w+|arg|drop|interpret|numeric\s+(digits|
-            form(\s+(scientific|engineering|value))?|fuzz)|options|
-            parse(\s+upper)?\s+(external|numeric|source|value|var|version)?|
-            with|procedure(\s+expose)?|pull|push|queue|say|trace\s+\w+|upper)
-            \b(?!\.)
+      - name: keyword.rexx
+        match: >-
+          \b
+          (?i:do|forever|while|until|to|by|for|end|exit|if|then|
+          else|iterate|leave|nop|return|select|when|otherwise|with|
+          arg|drop|interpret|options|pull|push|queue|say|upper|
+          trace\s+\w+|
+          address\s+\w+|
+          procedure(\s+expose)?|
+          call(\s+(off|on)\s+(error|failure|halt)(\s+name)?)?|
+          signal(\s+(off|on)\s+(error|failure|halt|novalue|syntax)(\s+name)?)?|
+          numeric\s+(digits|fuzz|form(\s+(scientific|engineering|value))?)|
+          parse(\s+upper)?\s+(external|numeric|source|value|var|version)?)
+          \b(?!\.)
 
     constant:
       patterns:
-        - name: constant.numeric.rexx
-          match: >-
-            [0-9]+(\.)?[0-9]*(?i:e[-+]?[0-9]+)?\b|
-            [0-9]*(\.)?[0-9]+(?i:e[-+]?[0-9]+)?\b
+      # (?<=[+-/*%&|(¬\\=<>]|return|exit)
+      # (\s*[+-])*\s*
+      # ([0-9]+(\.)?[0-9]*(?i:e[-+]?[0-9]+)?\b|
+      # [0-9]*(\.)?[0-9]+(?i:e[-+]?[0-9]+)?\b)
+      # this was a little process-intensive ?
+      - name: constant.numeric.rexx
+        match: >-
+          [0-9]+(\.)?[0-9]*(?i:e[-+]?[0-9]+)?\b|
+          [0-9]*(\.)?[0-9]+(?i:e[-+]?[0-9]+)?\b
 
-        - name: constant.other.rexx
-          match: >-
-            [0-9\.][A-Za-z0-9@#$¢.!?_]*
+      - name: constant.other.rexx
+        match: >-
+          [0-9\.][A-Za-z0-9@#$¢.!?_]*
 
     # need fix
     variable:
       patterns:
-        - name: variable.rexx
-          match: >-
-            [A-Za-z@#$¢!?_][A-Za-z0-9@#$¢.!?_]*
+      - name: variable.rexx
+        match: >-
+          [A-Za-z@#$¢!?_][A-Za-z0-9@#$¢.!?_]*
 
+    operator:
+      patterns:
+      - name: keyword.operator.rexx
+        match: ([+-/*%&|()¬\\=<>])

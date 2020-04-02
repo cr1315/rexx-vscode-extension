@@ -1,15 +1,15 @@
 {
   "name": "rexx",
   "scopeName": "source.rexx",
+  "firstLineMatch": "/\\*.*(?i:rexx)\\b",
+  "foldingStartMarker": "(/\\*|\\b(do|select)\\b)",
+  "foldingStopMarker": "(\\*/|\\bend\\b)",
   "fileTypes": [
     "rex",
     "rxj",
     "rexx",
     "rx"
   ],
-  "firstLineMatch": "/\\*.*(?i:rexx)\\b",
-  "foldingStartMarker": "(/\\*|\\b(do|select)\\b)",
-  "foldingStopMarker": "(\\*/|\\bend\\b)",
   "patterns": [
     {
       "include": "#comment"
@@ -60,23 +60,28 @@
         },
         {
           "include": "#constant"
+        },
+        {
+          "include": "#operator"
         }
       ]
     },
     "string": {
       "patterns": [
         {
+          "comment": "binary string",
           "name": "constant.numeric.binary.rexx",
-          "match": "(['\"])[01 ]+\\1(?i:b)"
+          "match": "(['\"])[01 ]+\\1(?i:b)(?![A-Za-z0-9@#$¢.!?_])"
         },
         {
+          "comment": "hexadecimal string",
           "name": "constant.numeric.hexadecimal.rexx",
-          "match": "(['\"])[0-9a-fA-F ]+\\1(?i:x)"
+          "match": "(['\"])[0-9a-fA-F ]+\\1(?i:x)(?![A-Za-z0-9@#$¢.!?_])"
         },
         {
           "name": "string.quoted.double.rexx",
           "begin": "(?<!\")\"",
-          "end": "\"(?!\")([xXbB](?=\\s))?",
+          "end": "\"(?!\")([xXbB][A-Za-z0-9@#$¢.!?_]*)?",
           "endCaptures": {
             "1": {
               "name": "invalid.rexx"
@@ -92,7 +97,7 @@
         {
           "name": "string.quoted.single.rexx",
           "begin": "(?<!')'",
-          "end": "'(?!')([xXbB](?=\\s))?",
+          "end": "'(?!')([xXbB][A-Za-z0-9@#$¢.!?_]*)?",
           "endCaptures": {
             "1": {
               "name": "invalid.rexx"
@@ -133,12 +138,12 @@
           ]
         },
         {
-          "comment": "all the others are user-defined functions ?",
+          "comment": "all others are user-defined functions, aren't they ?",
           "name": "entity.name.section.rexx",
           "match": "[A-Za-z@#$!?_0-9]+(?=\\()"
         },
         {
-          "comment": "also, we call our user-defined functions this way.",
+          "comment": "also, we could call our functions this way.",
           "match": "\\b(call)\\s+(?!on|off)(\\S+)(?=\\s)",
           "captures": {
             "1": {
@@ -150,7 +155,7 @@
           }
         },
         {
-          "comment": "and this way.",
+          "comment": "and this way..?",
           "match": "\\b(signal)\\s+(?!on|off)(\\S+)(?=\\s)",
           "captures": {
             "1": {
@@ -166,16 +171,12 @@
     "keyword": {
       "patterns": [
         {
-          "name": "keyword.operator.rexx",
-          "match": "([\\+-/*%&|()¬\\\\=<>])"
-        },
-        {
           "name": "keyword.control.italic.rexx",
           "match": "\\b(?i:do|end|if|then|else)\\b(?!\\.)"
         },
         {
           "name": "keyword.rexx",
-          "match": "\\b(?i:do|forever|while|until|to|by|for|end|exit|if|then|else|iterate|leave|nop|return|select|when|otherwise|call(\\s+(off|on)\\s+(error|failure|halt)(\\s+name)?)?|signal(\\s+(off|on)\\s+(error|failure|halt|novalue|syntax)(\\s+name)?)?|address\\s+\\w+|arg|drop|interpret|numeric\\s+(digits|form(\\s+(scientific|engineering|value))?|fuzz)|options|parse(\\s+upper)?\\s+(external|numeric|source|value|var|version)?|with|procedure(\\s+expose)?|pull|push|queue|say|trace\\s+\\w+|upper)\\b(?!\\.)"
+          "match": "\\b(?i:do|forever|while|until|to|by|for|end|exit|if|then|else|iterate|leave|nop|return|select|when|otherwise|with|arg|drop|interpret|options|pull|push|queue|say|upper|trace\\s+\\w+|address\\s+\\w+|procedure(\\s+expose)?|call(\\s+(off|on)\\s+(error|failure|halt)(\\s+name)?)?|signal(\\s+(off|on)\\s+(error|failure|halt|novalue|syntax)(\\s+name)?)?|numeric\\s+(digits|fuzz|form(\\s+(scientific|engineering|value))?)|parse(\\s+upper)?\\s+(external|numeric|source|value|var|version)?)\\b(?!\\.)"
         }
       ]
     },
@@ -196,6 +197,14 @@
         {
           "name": "variable.rexx",
           "match": "[A-Za-z@#$¢!?_][A-Za-z0-9@#$¢.!?_]*"
+        }
+      ]
+    },
+    "operator": {
+      "patterns": [
+        {
+          "name": "keyword.operator.rexx",
+          "match": "([+-/*%&|()¬\\\\=<>])"
         }
       ]
     }
