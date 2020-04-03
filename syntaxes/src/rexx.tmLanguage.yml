@@ -64,11 +64,11 @@
       - include: "#string"
 
       # temporarily
-      - include: "#function-call"
       - include: "#keyword"
-      - include: "#variable"
       - include: "#constant"
+      - include: "#function-call"
       - include: "#operator"
+      - include: "#variable"
 
     string:
       patterns:
@@ -170,6 +170,16 @@
         match: \b(?i:do|end|if|then|else)\b(?!\.)
 
       - name: keyword.rexx
+        begin: \bsay\b(?!\.)
+        end: ;|$
+        patterns:
+          - include: "#comment"
+          - include: "#constant"
+          - include: "#function-call"
+          - include: "#operator"
+          - include: "#variable"
+
+      - name: keyword.rexx
         match: >-
           \b
           (?i:do|forever|while|until|to|by|for|end|exit|if|then|
@@ -186,15 +196,21 @@
 
     constant:
       patterns:
-      # (?<=[+-/*%&|(¬\\=<>]|return|exit)
-      # (\s*[+-])*\s*
-      # ([0-9]+(\.)?[0-9]*(?i:e[-+]?[0-9]+)?\b|
-      # [0-9]*(\.)?[0-9]+(?i:e[-+]?[0-9]+)?\b)
-      # this was a little process-intensive ?
+          # [0-9]+(\.)?[0-9]*(?i:e[-+]?[0-9]+)?\b|
+          # [0-9]*(\.)?[0-9]+(?i:e[-+]?[0-9]+)?\b
+
       - name: constant.numeric.rexx
         match: >-
-          [0-9]+(\.)?[0-9]*(?i:e[-+]?[0-9]+)?\b|
-          [0-9]*(\.)?[0-9]+(?i:e[-+]?[0-9]+)?\b
+          ([+-]\s*)*
+          ([0-9]+(\.)?[0-9]*(?i:e[-+]?[0-9]+)?\b|
+          [0-9]*(\.)?[0-9]+(?i:e[-+]?[0-9]+)?\b)
+
+
+
+
+
+
+
 
       - name: constant.other.rexx
         match: >-

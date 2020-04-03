@@ -50,19 +50,19 @@
           "include": "#string"
         },
         {
-          "include": "#function-call"
-        },
-        {
           "include": "#keyword"
-        },
-        {
-          "include": "#variable"
         },
         {
           "include": "#constant"
         },
         {
+          "include": "#function-call"
+        },
+        {
           "include": "#operator"
+        },
+        {
+          "include": "#variable"
         }
       ]
     },
@@ -176,6 +176,28 @@
         },
         {
           "name": "keyword.rexx",
+          "begin": "\\bsay\\b(?!\\.)",
+          "end": ";|$",
+          "patterns": [
+            {
+              "include": "#comment"
+            },
+            {
+              "include": "#constant"
+            },
+            {
+              "include": "#function-call"
+            },
+            {
+              "include": "#operator"
+            },
+            {
+              "include": "#variable"
+            }
+          ]
+        },
+        {
+          "name": "keyword.rexx",
           "match": "\\b(?i:do|forever|while|until|to|by|for|end|exit|if|then|else|iterate|leave|nop|return|select|when|otherwise|with|arg|drop|interpret|options|pull|push|queue|say|upper|trace\\s+\\w+|address\\s+\\w+|procedure(\\s+expose)?|call(\\s+(off|on)\\s+(error|failure|halt)(\\s+name)?)?|signal(\\s+(off|on)\\s+(error|failure|halt|novalue|syntax)(\\s+name)?)?|numeric\\s+(digits|fuzz|form(\\s+(scientific|engineering|value))?)|parse(\\s+upper)?\\s+(external|numeric|source|value|var|version)?)\\b(?!\\.)"
         }
       ]
@@ -184,7 +206,7 @@
       "patterns": [
         {
           "name": "constant.numeric.rexx",
-          "match": "[0-9]+(\\.)?[0-9]*(?i:e[-+]?[0-9]+)?\\b|[0-9]*(\\.)?[0-9]+(?i:e[-+]?[0-9]+)?\\b"
+          "match": "([+-]\\s*)*([0-9]+(\\.)?[0-9]*(?i:e[-+]?[0-9]+)?\\b|[0-9]*(\\.)?[0-9]+(?i:e[-+]?[0-9]+)?\\b)"
         },
         {
           "name": "constant.other.rexx",
