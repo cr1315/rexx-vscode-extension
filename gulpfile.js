@@ -5,7 +5,7 @@ function toJSON(callback) {
   src("./syntaxes/src/rexx.tmLanguage.yml")
     .pipe(yaml({ space: 2 }))
     .pipe(dest("./syntaxes/out/"));
-  callback();
+  callback(null);
 }
 
 exports.default = () => {

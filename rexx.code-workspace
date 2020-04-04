@@ -5,6 +5,9 @@
 		}
 	],
 	"settings": {
-
+		"editor.formatOnSave": false,
+		"[yaml]": {
+			"editor.fontLigatures": false
+		}
 	}
 }

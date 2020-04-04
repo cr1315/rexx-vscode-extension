@@ -2,7 +2,7 @@
 
 This is a syntax highlighter for z/OS TSO/E REXX.
 
-Syntax is based on [IBM's REXX syntax here](https://www.ibm.com/support/knowledgecenter/en/SSLTBW_2.3.0/com.ibm.zos.v2r3.ikja300/intro.htm).
+We highlight the rexx source following a syntax based [IBM's REXX syntax here](https://www.ibm.com/support/knowledgecenter/en/SSLTBW_2.3.0/com.ibm.zos.v2r3.ikja300/intro.htm).
 
 ## 值得一说的东西
 
